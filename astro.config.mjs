@@ -1,12 +1,9 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import node from '@astrojs/node';
 
+// Fully static: the build output in dist/ is served as plain files (nginx), no Node server.
 export default defineConfig({
-  output: 'server',
-  adapter: node({
-    mode: 'standalone',
-  }),
+  site: 'https://noahvp.dev',
   vite: {
     plugins: [tailwindcss()],
   },

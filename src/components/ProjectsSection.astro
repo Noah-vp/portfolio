@@ -3,6 +3,7 @@ interface Project {
   title: string;
   date: string;
   type?: string;
+  status?: string;
   description: string;
   preview?: string;
   whatIs?: string;
@@ -55,6 +56,12 @@ const { config } = Astro.props;
           )}
 
           <div class="flex flex-1 flex-col p-5">
+            {project.status && (
+              <span class="mb-3 inline-flex w-fit items-center gap-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 px-2.5 py-1 text-[11px] font-semibold text-brand-300">
+                <span class="h-1.5 w-1.5 rounded-full bg-brand-400" />
+                {project.status}
+              </span>
+            )}
             <h3 class="mb-2 text-sm font-semibold text-white">{project.title}</h3>
             <div class="mb-3 flex flex-wrap gap-x-3 gap-y-1">
               <span class="text-xs text-neutral-500">{project.date}</span>

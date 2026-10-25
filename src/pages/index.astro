@@ -2,20 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import HeroSection from '../components/HeroSection.astro';
-import SkillsSection from '../components/SkillsSection.astro';
-import ProjectsSection from '../components/ProjectsSection.astro';
-import ExperienceSection from '../components/ExperienceSection.astro';
-import EducationSection from '../components/EducationSection.astro';
-import ResumeSection from '../components/ResumeSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 
 import { navigationConfig } from '../config/navigation.config.js';
 import { heroConfig } from '../config/hero.config.js';
-import { skillsConfig } from '../config/skills.config.js';
-import { projectsConfig } from '../config/projects.config.js';
-import { experienceConfig } from '../config/experience.config.js';
-import { educationConfig } from '../config/education.config.js';
-import { resumeConfig } from '../config/resume.config.js';
 import { contactConfig } from '../config/contact.config.js';
 ---
 
@@ -23,11 +13,6 @@ import { contactConfig } from '../config/contact.config.js';
   <Navigation items={navigationConfig.items} />
   <main class="mx-auto max-w-6xl px-4">
     <HeroSection config={heroConfig} />
-    <ExperienceSection config={experienceConfig} />
-    <ProjectsSection config={projectsConfig} />
-    <SkillsSection config={skillsConfig} />
-    <EducationSection config={educationConfig} />
-    <ResumeSection config={resumeConfig} />
     <ContactSection config={contactConfig} />
   </main>
 </Layout>

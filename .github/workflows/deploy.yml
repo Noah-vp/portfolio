@@ -1,0 +1,36 @@
+# Build the static site on GitHub and publish it to the `deploy` branch, together with a tiny nginx Dockerfile.
+# Coolify serves that branch as-is, so the server never runs npm or astro.
+name: deploy
+on:
+  push:
+    branches: [main, v2]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Add the nginx Dockerfile
+        run: |
+          cat > dist/Dockerfile <<'DOCKER'
+          FROM nginx:1.27-alpine
+          COPY . /usr/share/nginx/html/
+          RUN rm /usr/share/nginx/html/Dockerfile
+          DOCKER
+      - name: Publish dist/ to the deploy branch
+        run: |
+          cd dist
+          git init -q -b deploy
+          git add -A
+          git -c user.name="github-actions" -c user.email="github-actions@users.noreply.github.com" commit -q -m "Build ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" deploy

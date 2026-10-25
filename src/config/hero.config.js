@@ -2,16 +2,19 @@ export const heroConfig = {
   profileImage: '/images/profile-picture.jfif',
   name: 'Noah van Potten',
   description: [
-    'AI Engineer @ ADAMI Amsterdam',
-    'Technical Founder @ localapps.ai',
-    'Creative Technology student @ VU/UTwente',
+    'I build things.',
+    'Now building Vizr',
+    'Now building Prunerail',
+    'Shipping fast, keeping what works',
   ],
+  intro:
+    'I turn ideas into working software quickly, put it in front of real people and keep going with whatever they actually use. Most things don\'t make it. Those that do get my full attention.',
   primaryButton: {
-    text: 'View Projects',
-    link: '#projects',
+    text: 'Get in touch',
+    link: '#contact',
   },
   secondaryButton: {
-    text: 'Contact',
-    link: '#contact',
+    text: 'GitHub',
+    link: 'https://github.com/Noah-vp',
   },
 };

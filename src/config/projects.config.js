@@ -2,24 +2,34 @@ export const projectsConfig = {
   title: 'Projects',
   projects: [
     {
-      title: 'localapps.ai',
-      date: 'Jan 2026 – Present',
-      type: 'Startup',
+      title: 'Vizr',
+      date: 'Oct 2026 – Present',
+      type: 'Volleyball',
+      status: 'Live · free beta',
       description:
-        'AI software for small law firms that runs entirely on-device — no cloud, no data leaving the computer.',
-      preview: '/previews/localapps.ai.png',
+        'Scouting reports for volleyball coaches: the form, stats and match videos of your next opponent in one report.',
       whatIs:
-        'localapps.ai is an AI software company I founded targeting small law firms. The first product, Document Chat, is a desktop app that lets lawyers load contracts or case files and ask questions in plain language. Everything runs locally — no internet required, no data ever sent to external servers.',
+        'Vizr builds a scouting report for every upcoming match: the opponent\'s recent results, how they win and lose sets, and every match video of them that can be found on YouTube, linked to the game it belongs to.',
       whyBuilt:
-        'Every major AI tool sends your data to someone else\'s servers. For lawyers bound by professional secrecy, that\'s a dealbreaker. Large firms can afford custom on-premise solutions; small practices can\'t. I started localapps.ai to close that gap — giving small law firms the same AI productivity advantage without touching their confidentiality obligations.',
+        'A coach at my volleyball club asked me for footage of our opponents. That footage exists, spread over hundreds of club and fan channels, but nobody has time to dig through them every week. Vizr does the digging.',
       technicalDescription:
-        'Document Chat is a standalone desktop application using local LLM inference. The full stack — UI, model, document parsing — runs on the user\'s machine with no external calls. Distributed as a subscription at €39.99/device/month. I handle product, engineering, and go-to-market. Currently in active outreach with Dutch law firms.',
-      demo: null,
-      demoIsVideo: false,
-      demoAlt: 'localapps.ai product',
-      externalLink: 'https://localapps.ai',
+        'A crawler maps which YouTube channels film which Dutch clubs (about 1,200 channels and 30,000 videos so far) and refreshes them daily. Video titles are matched to teams and linked to results from the Nevobo API. The app is built with Nuxt, with coach accounts in SQLite.',
+      externalLink: 'https://vizr.noahvp.dev',
       linkType: 'url',
-      linkText: 'Visit localapps.ai',
+      linkText: 'Open Vizr',
+    },
+    {
+      title: 'Prunerail',
+      date: 'Oct 2026 – Present',
+      type: 'AI · Teams',
+      status: 'Waitlist',
+      description:
+        'Your whole team builds with AI. Your engineers stay in charge.',
+      whatIs:
+        'Prunerail turns what people across a company build with AI into software the company can rely on: secure, maintained and reviewed by an engineer before it goes live.',
+      externalLink: 'https://prunerail.noahvp.dev',
+      linkType: 'url',
+      linkText: 'Join the waitlist',
     },
     {
       title: 'Calendar Curator',
@@ -37,9 +47,6 @@ export const projectsConfig = {
       demo: '/demos/calendarcurator.mp4',
       demoIsVideo: true,
       demoAlt: 'Calendar Curator promo video',
-      externalLink: 'https://calendarcurator.com',
-      linkType: 'url',
-      linkText: 'View website',
     },
     {
       title: 'SnapTag',
@@ -137,9 +144,9 @@ export const projectsConfig = {
       demo: '/demos/map-generation.mp4',
       demoIsVideo: true,
       demoAlt: 'WFC map generation example',
-      externalLink: 'https://map.noahvp.dev',
+      externalLink: 'https://github.com/Noah-vp/wfc-map-generator',
       linkType: 'url',
-      linkText: 'View Live Demo',
+      linkText: 'View code',
     },
     {
       title: 'Nodejs multiplayer game',
@@ -156,9 +163,9 @@ export const projectsConfig = {
       demo: '/demos/nodejs-game.mp4',
       demoIsVideo: true,
       demoAlt: 'Nodejs multiplayer game screenshot',
-      externalLink: 'https://multiplayer.noahvp.dev',
+      externalLink: 'https://github.com/Noah-vp/knight-brawler',
       linkType: 'url',
-      linkText: 'View Live Demo',
+      linkText: 'View code',
     },
     {
       title: '8 bit ALU',
@@ -196,9 +203,9 @@ export const projectsConfig = {
       demo: '/demos/AI-learns-to-drive.mp4',
       demoIsVideo: true,
       demoAlt: 'AI learns to drive simulation',
-      externalLink: 'https://car.noahvp.dev',
+      externalLink: 'https://github.com/Noah-vp/neural-network-driving',
       linkType: 'url',
-      linkText: 'View Live Demo',
+      linkText: 'View code',
     },
   ],
 };

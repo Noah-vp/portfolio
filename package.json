@@ -12,7 +12,6 @@
     "vite": "^7"
   },
   "dependencies": {
-    "@astrojs/node": "^10.0.4",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.6",
     "tailwindcss": "^4.2.2"

@@ -4,6 +4,7 @@ interface Props {
     profileImage: string;
     name: string;
     description: string[];
+    intro?: string;
     primaryButton: { text: string; link: string };
     secondaryButton: { text: string; link: string };
   };
@@ -84,6 +85,10 @@ const lastName = rest.join(' ');
 
         tick();
       </script>
+
+      {config.intro && (
+        <p class="mx-auto mb-8 max-w-xl text-base leading-7 text-neutral-400 md:mx-0">{config.intro}</p>
+      )}
 
       <!-- CTA buttons -->
       <div class="flex flex-wrap justify-center gap-3 md:justify-start">
