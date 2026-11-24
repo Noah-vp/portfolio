@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Faster than the wind · Noah van Potten</title><meta name="description" content="A wind-powered car that tries to beat the wind, after Veritasium."><link rel="icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet"><script>document.documentElement.classList.add('js'); if (location.search.includes('shot')) document.documentElement.classList.add('shot');</script><link rel="stylesheet" href="/_astro/projects.DX7vjol9.css"></head> <body> <nav class="solid"> <a href="/" class="logo" aria-label="Noah van Potten, home">N.v.P</a> <div class="links"><a href="/#work">Work</a><a href="/#own">Non-client work</a><a href="/#contact">Contact</a></div> </nav>  <main class="wrap"> <header class="p-head"> <a class="back" href="/#own">← Back</a> <h1>Faster than the wind</h1> <div class="p-meta"> <span><b>What</b>University project · Physics</span> <span><b>My role</b>Team project</span> <span><b>Year</b>2025</span>  </div> </header> <article class="p-body"> <p>After Veritasium’s video, we tried to build a wind-powered car that goes faster than the wind. It almost worked.</p><p>Testing wind power without much wind meant using a treadmill, and friction won. It only really works at a huge scale or with almost no friction, and we didn’t have the time to optimise for that.</p> </article>   <div class="p-next"> <a href="/work"><small>All projects</small>See everything</a> <a href="/work/calendar-curator" style="text-align:right"><small>Next</small>Calendar Curator →</a> </div> <footer style="padding-bottom:48px"><span>© 2026 Noah van Potten</span><a href="mailto:noah.v.potten@gmail.com">noah.v.potten@gmail.com</a></footer> </main>  <script>
+    (function () {
+      const els = document.querySelectorAll('.rv');
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { els.forEach((e) => e.classList.add('in')); return; }
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
+      els.forEach((e) => io.observe(e));
+    })();
+  </script> <div class="pmodal" id="pmodal" role="dialog" aria-modal="true" aria-label="Project" hidden> <div class="pmodal-panel"> <button class="pmodal-close" id="pmodal-close" type="button" aria-label="Close project">✕</button> <div class="pmodal-body"></div> </div> </div> <script>
+    (function () {
+      const modal = document.getElementById('pmodal');
+      const body = modal.querySelector('.pmodal-body');
+      const isProject = (a) => a && a.origin === location.origin && /^\/work\/[^/#?]+\/?$/.test(a.pathname);
+      let baseUrl = null, baseTitle = document.title;
+      if (/^\/work\/[^/]+\/?$/.test(location.pathname)) return; // on a full project page: normal links
+
+      async function open(url, push) {
+        try {
+          const res = await fetch(url); if (!res.ok) throw 0;
+          const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+          const main = doc.querySelector('main'); if (!main) throw 0;
+          body.innerHTML = main.innerHTML;
+          body.querySelectorAll('.rv').forEach((e) => e.classList.add('in'));
+          body.querySelectorAll('.back').forEach((b) => b.remove());
+          if (!baseUrl) baseUrl = location.href;
+          if (push) history.pushState({ pmodal: url }, '', url);
+          document.title = doc.title;
+          modal.hidden = false; requestAnimationFrame(() => modal.classList.add('open'));
+          document.documentElement.classList.add('modal-open');
+          modal.scrollTop = 0; document.getElementById('pmodal-close').focus({ preventScroll: true });
+        } catch (e) { location.href = url; }
+      }
+      function hide() {
+        modal.classList.remove('open'); document.documentElement.classList.remove('modal-open');
+        document.title = baseTitle;
+        setTimeout(() => { if (!modal.classList.contains('open')) { modal.hidden = true; body.innerHTML = ''; } }, 300);
+      }
+      function close() { if (history.state && history.state.pmodal) history.back(); else hide(); }
+
+      document.addEventListener('click', (e) => {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const a = e.target.closest('a'); if (!isProject(a)) return;
+        e.preventDefault(); open(a.href, true);
+      });
+      document.getElementById('pmodal-close').addEventListener('click', close);
+      modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) close(); });
+      addEventListener('popstate', (e) => {
+        if (e.state && e.state.pmodal) open(e.state.pmodal, false); else if (!modal.hidden) hide();
+      });
+    })();
+  </script> </body> </html>
