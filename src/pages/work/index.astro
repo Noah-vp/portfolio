@@ -1,0 +1,57 @@
+---
+import V5 from '../../layouts/V5.astro';
+import { byKind } from '../../data/projects.js';
+
+const groups = [
+  ['client', 'Client work', 'At AdamI, since 2025', byKind('client')],
+  ['own', 'Non-client work', 'Built in my own time', byKind('own')],
+];
+---
+
+<V5 title="All projects · Noah van Potten" description="Everything Noah van Potten has built: client work at AdamI and his own projects." solidNav>
+  <main class="wrap">
+    <header class="p-head">
+      <a class="back" href="/">← Home</a>
+      <h1>All projects</h1>
+    </header>
+
+    {groups.map(([id, title, sub, list]) => (
+      <section class="grid-sec" id={id}>
+        <div class="sec-head"><h2>{title}</h2><p>{sub}</p></div>
+        <div class="cards">
+          {list.map((p) => (
+            <a class="card" href={`/work/${p.slug}`}>
+              <div class="thumb">
+                {p.cover
+                  ? <img src={p.cover} alt={p.title} loading="lazy" />
+                  : <div class="ph"><span>{p.title}</span></div>}
+              </div>
+              <p class="label">{p.label} · {p.year}</p>
+              <h3>{p.title}</h3>
+              <p class="sum">{p.summary}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <footer style="padding-bottom:48px"><span>© 2026 Noah van Potten</span><a href="mailto:noah.v.potten@gmail.com">noah.v.potten@gmail.com</a></footer>
+  </main>
+</V5>
+
+<style is:global>
+  .grid-sec { padding-top: 40px; padding-bottom: 60px; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px 28px; margin-top: 28px; }
+  .card .thumb { aspect-ratio: 4 / 3; border-radius: 6px; overflow: hidden; background: #f2f3f5; }
+  .card .thumb img { height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2,.7,.1,1); }
+  .card:hover .thumb img { transform: scale(1.04); }
+  .card .ph { height: 100%; display: flex; align-items: flex-end; padding: 22px; background: #1c1d21; color: #fff; }
+  .card .ph span { font-size: 28px; font-weight: 700; line-height: 1.05; letter-spacing: -.02em; }
+  .card:hover .ph { background: #2c2d32; }
+  .card .label { margin-top: 16px; font-size: 12px; }
+  .card h3 { font-size: 22px; font-weight: 700; margin-top: 4px; transition: color .2s; }
+  .card:hover h3 { color: var(--blue); }
+  .card .sum { color: var(--mid); font-size: 16px; margin-top: 4px; }
+  @media (max-width: 960px) { .cards { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
+</style>

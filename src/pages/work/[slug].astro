@@ -1,0 +1,55 @@
+---
+import V5 from '../../layouts/V5.astro';
+import { projects } from '../../data/projects.js';
+
+export function getStaticPaths() {
+  return projects.map((p, i) => ({ params: { slug: p.slug }, props: { p, next: projects[(i + 1) % projects.length] } }));
+}
+const { p, next } = Astro.props;
+const showMedia = false; // project view shows only the story for now; set to true to bring screenshots back
+const back = `/#${p.kind === 'client' ? 'work' : 'own'}`;
+---
+
+<V5 title={`${p.title} · Noah van Potten`} description={p.summary} solidNav>
+  <main class="wrap">
+    <header class="p-head">
+      <a class="back" href={back}>← Back</a>
+      <h1>{p.title}</h1>
+      <div class="p-meta">
+        <span><b>What</b>{p.label}</span>
+        <span><b>My role</b>{p.role}</span>
+        <span><b>Year</b>{p.year}</span>
+        {p.link && <span><b>Live</b><a href={p.link} target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">{p.linkText} ↗</a></span>}
+      </div>
+    </header>
+
+    <article class="p-body">
+      {p.story.map((para) => <p>{para}</p>)}
+    </article>
+
+    {showMedia && p.media.length === 0 && p.cover && (
+      <section class="p-media"><figure><img src={p.cover} alt={p.title} /></figure></section>
+    )}
+
+    {showMedia && p.media.length > 0 && (
+      <section class="p-media">
+        {p.media.map((m) => (
+          <figure class:list={[{ wide: m.tall }]}>
+            {m.type === 'cycle'
+              ? <div class="cycle">{m.srcs.map((src, n) => <img src={src} alt={n === 0 ? m.caption : ''} style={`--i:${n};--n:${m.srcs.length}`} />)}</div>
+              : m.type === 'video'
+              ? <video src={m.src} autoplay muted loop playsinline></video>
+              : <img src={m.src} alt={m.caption} loading="lazy" class:list={[{ tall: m.tall }]} />}
+            <figcaption>{m.caption}</figcaption>
+          </figure>
+        ))}
+      </section>
+    )}
+
+    <div class="p-next">
+      <a href="/work"><small>All projects</small>See everything</a>
+      <a href={`/work/${next.slug}`} style="text-align:right"><small>Next</small>{next.title} →</a>
+    </div>
+    <footer style="padding-bottom:48px"><span>© 2026 Noah van Potten</span><a href="mailto:noah.v.potten@gmail.com">noah.v.potten@gmail.com</a></footer>
+  </main>
+</V5>

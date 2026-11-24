@@ -1,18 +1,117 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.astro';
-import HeroSection from '../components/HeroSection.astro';
-import ContactSection from '../components/ContactSection.astro';
+import V5 from '../layouts/V5.astro';
+import { featured, byKind } from '../data/projects.js';
 
-import { navigationConfig } from '../config/navigation.config.js';
-import { heroConfig } from '../config/hero.config.js';
-import { contactConfig } from '../config/contact.config.js';
+const email = 'noah.v.potten@gmail.com';
+const linkedin = 'https://www.linkedin.com/in/noah-van-potten-13a961322/';
+const cv = '/docu/noah_van_potten_cv.pdf';
+const url = (p) => `/work/${p.slug}`;
+
+const sortFeat = (list) => [...list.filter((p) => p.featured), ...list.filter((p) => !p.featured)];
+const clientOrder = ['aaya-health-compass', 'ai-onderwijsassistent', 'pushgpt', 'incident-report-cartoons'];
+const client = [...clientOrder.map((s) => byKind('client').find((p) => p.slug === s)), ...byKind('client').filter((p) => !clientOrder.includes(p.slug))];
+const ownOrder = ['localapps-ai', 'vizr', 'drone-delivery', 'jetbot'];
+const own = [...ownOrder.map((s) => byKind('own').find((p) => p.slug === s)), ...byKind('own').filter((p) => !ownOrder.includes(p.slug))];
+
+const moments = [
+  ['/photos/demoday-speaking.jpg', 'Demo day'],
+  ['/photos/silicone-expo.jpg', 'Silicone Expo'],
+  ['/photos/whiteboard.jpg', 'Thinking it through'],
+  ['/photos/breda.jpg', 'Design Week Breda'],
+  ['/photos/pitch-budapest-2.jpg', 'Pitching in Budapest'],
+  ['/photos/jetbot-paint.jpg', 'Painting JETBOT'],
+  ['/photos/laptop-sunset.jpg', 'Working from somewhere sunny'],
+  ['/photos/hackathon.jpg', 'Hackathon'],
+];
 ---
 
-<Layout>
-  <Navigation items={navigationConfig.items} />
-  <main class="mx-auto max-w-6xl px-4">
-    <HeroSection config={heroConfig} />
-    <ContactSection config={contactConfig} />
+<V5>
+  <header class="hero">
+    <img src="/photos/hero-field.jpg" alt="Noah van Potten standing in a golden field with mountains behind him" />
+    <div class="hero-text centered">
+      <h1>I help companies design and build AI solutions.</h1>
+      <div class="hero-ctas">
+        <a class="hero-cta solid" href="#work">See my work</a>
+        <a class="hero-cta" href={`mailto:${email}`}>Get in touch</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="work" class="wrap work-first">
+      <div class="sec-head rv"><h2>Client work</h2><p>At AdamI, since 2025</p></div>
+      <div class="cgrid cgrid-client">
+        {client.map((p, i) => (
+          <a class:list={["ccard rv", { extra: i >= 4, big: i === 0, trio: i > 0 && i < 4 }]} href={url(p)}>
+            <div class="thumb">
+              {p.cycle ? <div class="cycle">{p.cycle.map((src, n) => <img src={src} alt={n === 0 ? p.title : ""} style={`--i:${n};--n:${p.cycle.length}`} loading="lazy" />)}</div> : p.cover ? <img src={p.cover} alt={p.title} loading="lazy" /> : <div class="ph"><span>{p.title}</span></div>}
+            </div>
+            <p class="label">{p.label}</p>
+            <h3>{p.title}</h3>
+            <p class="sum">{p.summary}</p>
+          </a>
+        ))}
+      </div>
+      {client.length > 4 && <button class="more-btn" type="button" data-count={client.length - 4}>Show {client.length - 4} more projects</button>}
+    </section>
+
+    <section id="own" class="wrap own">
+      <div class="sec-head rv"><h2>Non-client work</h2><p>Built in my own time</p></div>
+      <div class="cgrid cgrid-client">
+        {own.map((p, i) => (
+          <a class:list={["ccard rv", { extra: i >= 4, big: i === 0, trio: i > 0 && i < 4 }]} href={url(p)}>
+            <div class="thumb">
+              {p.cover ? <img src={p.cover} alt={p.title} loading="lazy" /> : <div class="ph"><span>{p.title}</span></div>}
+            </div>
+            <p class="label">{p.label}</p>
+            <h3>{p.title}</h3>
+            <p class="sum">{p.summary}</p>
+          </a>
+        ))}
+      </div>
+      {own.length > 4 && <button class="more-btn" type="button" data-count={own.length - 4}>Show {own.length - 4} more projects</button>}
+    </section>
+
+    <section id="about" class="wrap about about-merged">
+      <div class="about-media rv">
+        <video src="/photos/walk.mp4" poster="/photos/walk-poster.jpg" autoplay muted loop playsinline></video>
+      </div>
+      <div class="about-text rv">
+        <h2>About me</h2>
+        <p class="lead">I’m an engineer with an academic background in design. I care how something feels to use, and I have the technical skills to build almost anything myself.</p>
+        <p>I’ve been building my own things since I was 12: games and robots in high school, startups since. I studied Creative Technology at the University of Twente and VU Amsterdam, with a minor in AI and Advanced Software Engineering in Budapest. Since 2025 I’ve been building AI for clients at AdamI, and my own products on the side.</p>
+        <p>Outside of work, I play volleyball at my club, which is also where Vizr started, when a coach asked for footage of our next opponent. I like to cook for friends, surf when I get the chance, and travel whenever I can, preferably somewhere with mountains or a coast. Most of my best ideas come when I’m away from a screen.</p>
+      </div>
+    </section>
+
+    <section class="moments about-photos">
+      <div class="marquee" aria-label="Photos">
+        <div class="track">
+          {[...moments, ...moments].map(([src, cap], k) => (
+            <figure aria-hidden={k >= moments.length ? "true" : undefined}><img src={src} alt={k < moments.length ? cap : ""} loading="lazy" /><figcaption>{cap}</figcaption></figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="wrap contact">
+      <p class="label rv">Get in touch</p>
+      <a class="big rv" href={`mailto:${email}`}>{email}</a>
+      <div class="links rv">
+        <a href={linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href={cv} download>Download CV ↓</a>
+      </div>
+      <footer><span>© 2026 Noah van Potten</span><span>Built by me</span></footer>
+    </section>
   </main>
-</Layout>
+  <script is:inline>
+    document.querySelectorAll('.more-btn').forEach((b) => {
+      const grid = b.previousElementSibling, n = b.dataset.count;
+      b.addEventListener('click', () => {
+        const open = grid.classList.toggle('expanded');
+        b.textContent = open ? 'Show fewer' : 'Show ' + n + ' more projects';
+        if (!open) grid.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</V5>
